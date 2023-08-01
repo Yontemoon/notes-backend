@@ -2,10 +2,12 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors');
 const app = express();
-const mongoose = require('mongoose');
+// const mongoose = require('mongoose');
+
 const Note = require('./models/note')
-const password = "DIPF0mJkaq1d9u7a"
-const url = process.env.MONGODB_URI
+
+// const password = "DIPF0mJkaq1d9u7a"
+// const url = process.env.MONGODB_URI
 
 // `mongodb+srv://monteyoon1998:${password}@notes-database.iv3awuc.mongodb.net/noteApp?retryWrites=true&w=majority`;
 
@@ -52,21 +54,6 @@ app.use(cors())
 app.use(express.static('build'))
 
 let notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    important: true
-  },
-  {
-    id: 2,
-    content: "Browser can execute only JavaScript",
-    important: false
-  },
-  {
-    id: 3,
-    content: "GET and POST are the most important methods of HTTP protocol",
-    important: true
-  }
 ]
 
 
@@ -80,12 +67,12 @@ app.get('/api/notes', (req, res) => {
   })
 })
 
-const generateId = () => {
-  const maxId = notes.length > 0
-    ? Math.max(...notes.map(n => n.id))
-    : 0
-  return maxId + 1
-}
+// const generateId = () => {
+//   const maxId = notes.length > 0
+//     ? Math.max(...notes.map(n => n.id))
+//     : 0
+//   return maxId + 1
+// }
 
 app.post('/api/notes', (request, response) => {
   const body = request.body
@@ -118,6 +105,7 @@ app.post('/api/notes', (request, response) => {
 })
 
 app.get('/api/notes/:id', (request, response) => {
+  console.log(Note)
   Note.findById(request.params.id).then(note => {
     response.json(note)
   })
