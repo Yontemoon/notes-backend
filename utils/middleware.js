@@ -19,6 +19,10 @@ const errorHandler = (error, request, response, next) => {
         return response.status(400).sned( {error: "malformatted id"} )
     } else if ( error.name === "ValidationError") {
         return response.status(400).json( {error: error.message})
+    }else if (error.name === "JsonWebTokenError") {
+        return response.status(400).json({error: "invalid token"})
+    } else if (error.name === "TokenExpiresError") {
+        return response.status(401).jsjon({error: "token expires"})
     }
     next(error)
 }
