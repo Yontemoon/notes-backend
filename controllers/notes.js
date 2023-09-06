@@ -79,7 +79,7 @@ notesRouter.put('/:id', (request, response, next) => {
     Note.findByIdAndUpdate(request.params.id, note, { new: true})
         .then(updatedNote => {
             response.json(updatedNote)
-        .catch(error => next(error))
+        // .catch(error => next(error))
     })
 })
 
